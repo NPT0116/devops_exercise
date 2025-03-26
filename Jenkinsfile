@@ -11,7 +11,7 @@ pipeline {
     environment {
         REPO_URL = 'https://github.com/NPT0116/devops_exercise.git'
         BRANCH_NAME = "${params.BRANCH_NAME}"
-        IMAGE_NAME = 'ntquan87/22127389/nodejs-app-ci-cd'
+        IMAGE_NAME = 'ntquan87/nodejs-app-ci-cd'
     }
 
 
@@ -61,7 +61,14 @@ pipeline {
             }
         }
     }
-
+stage('Apply k8s') {
+            steps {
+                script {
+                    echo "Deploy to k8s"
+                    sh "helm upgrade --install --namespace=test-${LATEST_COMMIT}  --create-namespace jenkins-${LATEST_COMMIT} -f $helmValues $helmChart --set image.repository=${IMAGE_NAME} --set image.tag=${LATEST_COMMIT}"
+                }
+            }
+        }
     // post {
     //     always {
     //         // Clean up Docker images and containers
