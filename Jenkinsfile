@@ -9,9 +9,9 @@ pipeline {
     }
 
     environment {
-        REPO_URL = 'https://github.com/NPT0116/devops_exercise.git'
+        REPO_URL = 'https://github.com/huy37204/exercise-devops.git'
         BRANCH_NAME = "${params.BRANCH_NAME}"
-        IMAGE_NAME = 'ntquan87/nodejs-app-ci-cd'
+        IMAGE_NAME = 'ntquan87/22127164-nodejs-app-ci-cd'
     }
 
 
@@ -60,7 +60,6 @@ pipeline {
                 }
             }
         }
-    }
         stage('Apply k8s') {
             steps {
                 script {
@@ -69,6 +68,8 @@ pipeline {
                 }
             }
         }
+    }
+
     // post {
     //     always {
     //         // Clean up Docker images and containers
