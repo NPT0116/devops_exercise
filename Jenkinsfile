@@ -9,7 +9,7 @@ pipeline {
     }
 
     environment {
-        REPO_URL = 'https://github.com/ntquan/nodejs-app-ci-cd.git'
+        REPO_URL = 'https://github.com/NPT0116/devops_exercise.git'
         BRANCH_NAME = "${params.BRANCH_NAME}"
         IMAGE_NAME = 'ntquan87/nodejs-app-ci-cd'
     }
@@ -57,14 +57,6 @@ pipeline {
                 script {
                     // Push the image to Docker registry (optional)
                     sh "docker push ${IMAGE_NAME}:${LATEST_COMMIT}"
-                }
-            }
-        }
-        stage('Apply k8s') {
-            steps {
-                script {
-                    echo "Deploy to k8s"
-                    sh "helm upgrade --install --namespace=test-${LATEST_COMMIT}  --create-namespace jenkins-${LATEST_COMMIT} -f $helmValues $helmChart --set image.repository=${IMAGE_NAME} --set image.tag=${LATEST_COMMIT}"
                 }
             }
         }
