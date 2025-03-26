@@ -61,7 +61,7 @@ pipeline {
             }
         }
     }
-stage('Apply k8s') {
+        stage('Apply k8s') {
             steps {
                 script {
                     echo "Deploy to k8s"
